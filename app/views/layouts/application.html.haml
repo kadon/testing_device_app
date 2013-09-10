@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+%html
+  %head
+    %title=TestingDeviseApp
+    = stylesheet_link_tag "application", media: "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  %body{"data-spy" => "scroll", "data-target" => ".bs-docs-sidebar", "data-twttr-rendered" => "true"}
+    .alertd
+      #alerts-container
+        - if notice
+          = render 'layouts/alert', :alert => notice
+    = yield
+    = render 'layouts/footer'

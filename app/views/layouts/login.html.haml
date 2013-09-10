@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %title iTexico App
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  %body.login
+    .container
+      .row
+        #alerts-container.span12
+          - if alert
+            = render 'layouts/alert', :alert => alert
+      .row
+        .span4.offset4
+          .login-container
+            .inner.well
+              = yield

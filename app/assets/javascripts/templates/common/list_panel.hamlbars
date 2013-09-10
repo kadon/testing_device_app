@@ -1,0 +1,7 @@
+%a.btn.btn-primary.js-new
+  Add device
+  %i.icon-plus.icon-white
+%form.form-search.form-inline.pull-right
+  .input-append
+    %input.search-query.js-filter-criterion{:type => "text"}
+    %button.btn.js-filter{:type => "submit"} Filter devices

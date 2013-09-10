@@ -3,3 +3,44 @@
 
 en:
   hello: "Hello world"
+  application:
+    name: "Testing Devices App"
+  menu:
+    primary:
+      home:   "Home"
+      help:   "Help"
+      sig_in: "Sig in"
+  devise:
+    login:
+      email: "Email"
+      password: "Password"
+      sign_in: "Sign in"
+      sign_out: "Logout"
+      remember_me: "Remember me"
+  activerecord:
+    models:
+      user: "User"
+      device: "Device"
+    attributes:
+      device:
+        color: "Color: "
+        description: "Description: "
+        id_inventario: "ID Itexico: "
+        no_serie: "Serie: "
+        so: "SO: "
+        type_device: "Type: "
+        udid: "UDID: "
+        version: "Version: "
+
+  devices:
+    index: 
+      title: "Devices List"
+    new:
+      title: "New device"
+    edit:
+      title: "Edit device"
+    show:
+      title: "Show device"
+    remove:
+      title: "Remove device"
+     

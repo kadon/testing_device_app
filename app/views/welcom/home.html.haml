@@ -1,0 +1,12 @@
+#header-region
+#main-region.container
+#dialog-region
+= javascript_tag do
+  $(function() {
+  ManagerDevicesApp.start();
+  });
+
+:javascript
+  I18n.defaultLocale = "#{I18n.default_locale}";
+  I18n.locale = "#{I18n.locale}";
+

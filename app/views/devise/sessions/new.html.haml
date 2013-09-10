@@ -1,0 +1,13 @@
+%h2.logo
+%h3.login= t('application.name')
+= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+  = f.email_field :email, :autofocus => true, :class => "login", :placeholder => t("devise.login.email")
+  = f.password_field :password, :class => "login", :placeholder => t("devise.login.password")
+  %div= f.submit t("devise.login.sign_in"), :class => "btn btn-primary"
+  - if devise_mapping.rememberable?
+    .pull-right
+      = f.label :remember_me, :class => "push-right" do
+        = f.check_box :remember_me
+        = t("devise.login.remember_me") 
+
+

@@ -1,4 +1,13 @@
 TestingDeviseApp::Application.routes.draw do
+  resources :devices
+
+
+  authenticated :user do
+    root :to => 'welcom#home'
+  end
+  root :to => 'welcom#home'
+  devise_for :users
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

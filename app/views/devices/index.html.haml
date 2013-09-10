@@ -1,0 +1,33 @@
+%h1 Listing devices
+
+%table
+  %tr
+    %th Type device
+    %th So
+    %th Version
+    %th No serie
+    %th Id inventario
+    %th Udid
+    %th Description
+    %th Color
+    %th
+    %th
+    %th
+
+  - @devices.each do |device|
+    %tr
+      %td= device.type_device
+      %td= device.so
+      %td= device.version
+      %td= device.no_serie
+      %td= device.id_inventario
+      %td= device.udid
+      %td= device.description
+      %td= device.color
+      %td= link_to 'Show', device
+      %td= link_to 'Edit', edit_device_path(device)
+      %td= link_to 'Destroy', device, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Device', new_device_path

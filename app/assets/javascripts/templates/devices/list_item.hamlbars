@@ -1,0 +1,31 @@
+.thumbnail
+  %span.label.label-important.bm Busysdd
+  .device-actions
+    %ul
+      %li.hint{"data-original-title" => "Edit", "data-placement" => "right", "data-toggle" => "Edit", :href => "#", :title => ""}	
+        %i#edit.icon-pencil 
+      %li.hint{"data-original-title" => "Show", "data-placement" => "right", "data-toggle" => "Edit", :href => "#", :title => ""}
+        %i#show.icon-eye-open 
+      %li.hint{"data-original-title" => "Remove", "data-placement" => "right", "data-toggle" => "Edit", :href => "#", :title => ""}
+        %i#remove.icon-remove
+      %li.hint{"data-original-title" => "Use", "data-placement" => "right", "data-toggle" => "Edit", :href => "#", :title => ""}
+        %i#use.icon-hand-up 
+      %li.hint{"data-original-title" => "Release", "data-placement" => "right", "data-toggle" => "Edit", :href => "#", :title => ""}
+        %i#release.icon-hand-down
+  %img.device{:alt => "Smiley face", :src => "assets/not_image.png"}
+  .caption
+    %h5.description 
+      .crop {{ description }}
+    .device-label
+      %h6=hb "t 'activerecord.attributes.device.so'" 
+      %h6.description {{ so }}
+    .device-label
+      %h6=hb "t 'activerecord.attributes.device.type_device'"
+      %h6.description {{ type_device }}
+    .device-label
+      %h6=hb "t 'activerecord.attributes.device.version'"
+      %h6.description {{ version }}
+    .device-label
+      %h6=hb "t 'activerecord.attributes.device.id_inventario'"
+      %h6.description 
+        .crop  {{ id_inventario }}

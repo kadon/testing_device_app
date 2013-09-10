@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Type device:
+  = @device.type_device
+%p
+  %b So:
+  = @device.so
+%p
+  %b Version:
+  = @device.version
+%p
+  %b No serie:
+  = @device.no_serie
+%p
+  %b Id inventario:
+  = @device.id_inventario
+%p
+  %b Udid:
+  = @device.udid
+%p
+  %b Description:
+  = @device.description
+%p
+  %b Color:
+  = @device.color
+
+= link_to 'Edit', edit_device_path(@device)
+\|
+= link_to 'Back', devices_path
