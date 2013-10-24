@@ -13,7 +13,7 @@ def create_unconfirmed_user
   create_visitor
   delete_user
   sign_up
-  visit '/users/sign_out'
+  visit '/usuarios/logout'
 end
 
 def create_user
@@ -29,7 +29,7 @@ end
 
 def sign_up
   delete_user
-  visit '/users/sign_up'
+  visit '/usuarios/sign_up'
   fill_in "user_name", :with => @visitor[:name]
   fill_in "user_email", :with => @visitor[:email]
   fill_in "user_password", :with => @visitor[:password]
@@ -38,8 +38,8 @@ def sign_up
   find_user
 end
 
-def sign_in
-  visit '/users/sign_in'
+def login
+  visit '/usuarios/login'
   fill_in "user_email", :with => @visitor[:email]
   fill_in "user_password", :with => @visitor[:password]
   click_button "Sign in"
@@ -47,12 +47,12 @@ end
 
 ### GIVEN ###
 Given /^I am not logged in$/ do
-  visit '/users/sign_out'
+  visit '/usuarios/logout'
 end
 
 Given /^I am logged in$/ do
   create_user
-  sign_in
+  login
 end
 
 Given /^I exist as a user$/ do
@@ -71,11 +71,11 @@ end
 ### WHEN ###
 When /^I sign in with valid credentials$/ do
   create_visitor
-  sign_in
+  login
 end
 
 When /^I sign out$/ do
-  visit '/users/sign_out'
+  visit '/usuarios/logout'
 end
 
 When /^I sign up with valid user data$/ do
@@ -113,12 +113,12 @@ end
 
 When /^I sign in with a wrong email$/ do
   @visitor = @visitor.merge(:email => "wrong@example.com")
-  sign_in
+  login
 end
 
 When /^I sign in with a wrong password$/ do
   @visitor = @visitor.merge(:password => "wrongpass")
-  sign_in
+  login
 end
 
 When /^I edit my account details$/ do
@@ -128,7 +128,7 @@ When /^I edit my account details$/ do
   click_button "Update"
 end
 
-When /^I look at the list of users$/ do
+When /^I look at the list of usuarios$/ do
   visit '/'
 end
 

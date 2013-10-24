@@ -22,7 +22,7 @@ group :test do
   gem "email_spec", ">= 1.4.0" #A collection of matchers for RSpec/MiniTest and Cucumber steps to make testing emails go smoothly
   gem "cucumber-rails", ">= 1.3.0", :require => false
   gem "launchy", ">= 2.1.2" #Launchy is helper class for launching cross-platform applications in a fire and forget manner.
-  gem "selenium-webdriver", ">= 2.33.0"
+  gem "selenium-webdriver", ">= 2.34.0"
 end
 
 #group :production do

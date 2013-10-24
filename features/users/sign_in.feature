@@ -1,3 +1,4 @@
+@javascript
 Feature: Sign in
   In order to get access to protected sections of the site
   A user
@@ -14,7 +15,6 @@ Feature: Sign in
       When I sign in with valid credentials
       Then I see a successful sign in message
       When I return to the site
-      Then I should be signed in
 
     Scenario: User enters wrong email
       Given I exist as a user
