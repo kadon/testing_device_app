@@ -11,10 +11,11 @@
       %ul.nav
         %li.divider-vertical
       .btn-group.pull-right
-	= link_to "Cerrar sesión", destroy_user_session_path, :method => :delete
         %a.user.btn.dropdown-toggle{:"data-toggle" => "dropdown"}
           %i.icon-user
           %span.caret
-
+        %ul.dropdown-menu
+          %li
+            %a{"data-method" => "delete", :href => "/usuarios/logout", :rel => "nofollow"} Cerrar sesión
 
 

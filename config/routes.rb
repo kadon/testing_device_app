@@ -6,7 +6,8 @@ TestingDeviseApp::Application.routes.draw do
     root :to => 'welcom#home'
   end
   root :to => 'welcom#home'
-  devise_for :users
+
+  devise_for :users, :path => "usuarios", :path_names => { :sign_in => 'login', :sign_out => 'logout' }
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -27,6 +27,8 @@
 //= require backbone/app
 //= require_tree ./backbone/config/storage
 //= require_tree ./backbone/apps
+//= require_tree ./backbone/entities/models
+//= require_tree ./backbone/entities/collections
 //= require_tree ./backbone/entities
 //= require_tree ./templates
 //= require i18n

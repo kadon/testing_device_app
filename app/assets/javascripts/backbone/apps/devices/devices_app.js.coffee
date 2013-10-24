@@ -1,7 +1,4 @@
 ManagerDevicesApp.module "DevicesApp", (DevicesApp, ManagerDevicesApp, Backbone, Marionette, $, _) ->
-  DevicesApp.Router = Marionette.AppRouter.extend(appRoutes:
-    "devices(?filter=:criterion)": "listDevices"
-  )
   API =
     listDevices: (criterion) ->
       console.log("listDevies")
