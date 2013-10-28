@@ -52,7 +52,7 @@ gem "haml-rails"
 gem 'hamlbars', '~> 2.0'
 gem 'bootstrap-sass', '2.3.2.0'
 gem "figaro", ">= 0.5.3"
-
+gem 'jbuilder', '~> 1.0.1'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

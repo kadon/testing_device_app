@@ -1,16 +1,16 @@
 class DevicesController < ApplicationController
+  respond_to :json
   # GET /devices
   # GET /devices.json
   def index
-    sleep 3
     @devices = Device.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @devices }
-    end
+    #respond_to do |format|
+    #  format.html # index.html.erb
+    #  format.json { render json: @devices }
+    #end
   end
 
+=begin
   # GET /devices/1
   # GET /devices/1.json
   def show
@@ -81,4 +81,5 @@ class DevicesController < ApplicationController
       format.json { head :no_content }
     end
   end
+=end
 end

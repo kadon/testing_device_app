@@ -4,7 +4,7 @@ describe Device do
   before { @device = FactoryGirl.build(:device) }
   subject { @device }
   #=========================== attributes ===================================================#
-  [:type_device, :so, :version, :no_serie, :id_inventario, :udid, :description, :color].each do |attr|
+  [:type_device, :so, :version, :no_serie, :id_inventario, :udid, :description, :color, :status].each do |attr|
     it { should respond_to(attr) }
   end
 
@@ -28,6 +28,13 @@ describe Device do
     end
   end
 
+  describe "STATUSES accessors" do
+    Device::STATUSES.each do |status|
+      it "should respond to #{status.downcase}?" do
+        should respond_to("#{status.downcase}?")
+      end
+    end
+  end
 
   context 'validations' do
     describe 'type_device' do 
@@ -57,7 +64,35 @@ describe Device do
         end
       end
     end 
-    
+
+    describe 'statuses' do 
+      describe 'when is blank' do
+        before { subject.status = '' }
+        it "should be invalid" do
+          expect(subject).not_to be_valid
+        end
+      end
+ 
+      describe "when doesn't have the right status" do
+        it "should be invalid" do
+          wrong_statuses = %w(wrong_status other_wrong)
+          wrong_statuses.each do |wrong_status|
+            subject.status = wrong_status
+            expect(subject).not_to be_valid
+          end
+        end
+      end
+
+      describe "when have the right status" do
+        it "should be valid" do
+          Device::STATUSES.each do |right_status|
+            subject.status = right_status
+            expect(subject).to be_valid
+          end
+        end
+      end
+    end 
+
     describe 'so' do
       describe 'when is blank' do
         before { subject.so = ''}

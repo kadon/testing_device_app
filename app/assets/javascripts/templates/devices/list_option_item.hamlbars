@@ -1,0 +1,3 @@
+%li.hint{"data-original-title" => "{{ humanize name }}", "data-placement" => "right", "data-toggle" => "Edit", :href => "#", :title => ""}	
+  %i{:class => "{{ name }} {{icon}}"}
+

@@ -11,3 +11,10 @@ Handlebars.registerHelper "t", (scope, options) ->
   locale = options.hash.locale || {}
   I18n.t scope, locale
 
+Handlebars.registerHelper "humanize", (property) ->
+  humanize_property = ""
+  if property
+    humanize_property = property.toLocaleLowerCase().replace(/_/g, " ").replace /(\w+)/g, (match) -> match.charAt(0).toUpperCase() + match.slice(1)
+  new Handlebars.SafeString(humanize_property)
+
+

@@ -10,5 +10,6 @@ FactoryGirl.define do
     udid "88898895804"
     description "Tablet Android ss"
     color "Black"
+    status Device::STATUSES[0]
   end
 end
