@@ -1,11 +1,10 @@
 ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, Marionette, $, _) ->
-  #OPTIONS = ['Edit', 'Show', 'Remove', 'Use', 'Release']
   ACTIONS = [
-    {name: 'edit', icon: 'icon-pencil'},
-    {name: 'show', icon: 'icon-eye-open'},
-    {name: 'remove', icon: 'icon-remove-circle'},
-    {name: 'use', icon: 'icon-hand-up'},
-    {name: 'relase', icon: 'icon-hand-down'}
+    {name: 'edit', cancan_name: 'edit', icon: 'icon-pencil'},
+    {name: 'show', cancan_name: 'read', icon: 'icon-eye-open'},
+    {name: 'remove', cancan_name: 'remove', icon: 'icon-remove-circle'},
+    {name: 'use', cancan_name: 'read', icon: 'icon-hand-up'},
+    {name: 'relase', cancan_name: 'read',  icon: 'icon-hand-down'}
   ]
 
   class List.Contact extends Marionette.ItemView
@@ -58,7 +57,7 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
       status = @model.get('status')
       for action in ACTIONS
 	#if ManagerDevicesApp.Autentication.can? option, @model
-        @ui.optionsList.append(HandlebarsTemplates[@templateItemListOptions]( action )) #unless option is 'Use' or option is "Release" and status is "UNAVAILABLE"
+        @ui.optionsList.append(HandlebarsTemplates[@templateItemListOptions]( action )) if ManagerDevicesApp.Authorization.can( action.cancan_name, 'Device') #unless option is 'Use' or option is "Release" and status is "UNAVAILABLE"
         
     remove: ->
       #@$el.fadeOut ->
