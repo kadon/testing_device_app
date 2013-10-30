@@ -1,12 +1,12 @@
 #header-region
 #main-region.container
 #dialog-region
-- puts "#{current_ability.as_json}"
 = javascript_tag do
   $(function() {
   var current_user_object = {id: "#{ current_user.id}",email: "#{ current_user.email}",admin: "#{ current_user.admin?}",tester: "#{ current_user.tester?}",developer: "#{ current_user.developer?}"};
   var ability = '#{current_ability.as_json.html_safe }';
-  ManagerDevicesApp.start({current_user_object: current_user_object, ability: ability});
+  ManagerDevicesApp.Authorization.start({current_user_object: current_user_object, ability: ability});
+  ManagerDevicesApp.start();
   });
 
 :javascript

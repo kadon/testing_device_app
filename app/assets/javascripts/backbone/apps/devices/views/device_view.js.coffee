@@ -17,6 +17,11 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
       "click td a.js-show": "showClicked"
       "click td a.js-edit": "editClicked"
       "click button.js-delete": "deleteClicked"
+      "click i.edit": "editDevice"
+      "click i.show": "showDevice"
+      "click i.remove": "removeDevice"
+      "click i.use": "useDevice"
+      "click i.relase": "relaseDevice"
 
     ui:
       thumbnails: '.thumbnail'
@@ -39,6 +44,33 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
       e.stopPropagation()
       #@trigger "contact:show", @model
 
+    editDevice: (e) ->
+      e.preventDefault()
+      e.stopPropagation()
+      console.log("Lets edit this device")
+
+    showDevice: (e) ->
+      e.preventDefault()
+      e.stopPropagation()
+      console.log("Lets show this device")
+
+    removeDevice: (e) ->
+      e.preventDefault()
+      e.stopPropagation()
+      console.log("Lets remove this device")
+
+    useDevice: (e) ->
+      e.preventDefault()
+      e.stopPropagation()
+      console.log("Lets use this device")
+
+    relaseDevice: (e) ->
+      e.preventDefault()
+      e.stopPropagation()
+      console.log("Lets relase this device")
+
+
+
     editClicked: (e) ->
       e.preventDefault()
       e.stopPropagation()
@@ -52,12 +84,13 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
       @ui.statusLabel.addClass(@model.getStatusLabelClass())
       @renderOptions()
       @ui.thumbnails.find('li.hint').tooltip() #Show hint about each option
+      @ui.statusLabel.popover({title: 'Titulo', trigger: 'hover'})
 
     renderOptions: ->
       status = @model.get('status')
       for action in ACTIONS
-	#if ManagerDevicesApp.Autentication.can? option, @model
-        @ui.optionsList.append(HandlebarsTemplates[@templateItemListOptions]( action )) if ManagerDevicesApp.Authorization.can( action.cancan_name, 'Device') #unless option is 'Use' or option is "Release" and status is "UNAVAILABLE"
+        if ManagerDevicesApp.Authorization.can( action.cancan_name, 'Device')
+          @ui.optionsList.append(HandlebarsTemplates[@templateItemListOptions]( action )) #unless option is 'Use' or option is "Release" and status is "UNAVAILABLE"
         
     remove: ->
       #@$el.fadeOut ->

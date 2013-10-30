@@ -6,6 +6,12 @@ ManagerDevicesApp.module "HeaderApp.List", (List, ManagerDevicesApp, Backbone, M
     itemViewContainer: "ul.nav"
     events:
       "click a.brand": "brandClicked"
+    
+    ui:
+      userButton: 'a.user.dropdown-toggle'
 
     brandClicked: (e) ->
       @trigger "brand:clicked"
+
+    onRender: ->
+      @ui.userButton.find("i.icon-user").after(ManagerDevicesApp.Authorization.current_user.get('email'))

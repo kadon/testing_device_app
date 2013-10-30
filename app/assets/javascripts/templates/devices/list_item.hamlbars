@@ -3,7 +3,7 @@
     =hb 'humanize status'
   .device-actions
     %ul.options
-  %img.device{:alt => "Smiley face", :src => "assets/not_image.png"}
+  %img.device{:alt => "Smiley face", :src => "assets/smartphone211.jpg"}
   .caption
     %h5.description 
       .crop {{ description }}
