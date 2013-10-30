@@ -18,13 +18,6 @@ class Device < ActiveRecord::Base
   #Callbacks
  
   #Instance methods
-  def s
-    "s"
-  end
-  def s=(s)
-    @s = s
-  end
-
   SOS.each do |so_name|
     define_method "#{so_name.downcase}?" do
       so == so_name
