@@ -4,7 +4,6 @@ class Device < ActiveRecord::Base
   STATUSES = %w(AVAILABLE UNAVAILABLE FAILING)
   
   attr_accessible :color, :description, :id_inventario, :no_serie, :so, :type_device, :udid, :version, :status
-  attr_readonly :s
 
   #Validations
   validates :description, :type_device, :version, presence: true

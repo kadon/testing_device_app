@@ -4,7 +4,7 @@ describe Device do
   before { @device = FactoryGirl.build(:device) }
   subject { @device }
   #=========================== attributes ===================================================#
-  [:type_device, :so, :version, :no_serie, :id_inventario, :udid, :description, :color, :status].each do |attr|
+  [:type_device, :so, :version, :no_serie, :id_inventario, :udid, :description, :color, :status, :start_using, :user_id, :project_id].each do |attr|
     it { should respond_to(attr) }
   end
 
@@ -91,6 +91,67 @@ describe Device do
           end
         end
       end
+
+      describe "when status is AVAILABLE" do
+        before { subject.status = Device::STATUSES[0] } 
+        describe "user attribute" do
+          it "should be nil" do
+            subject.user = FactoryGirl.create(:user)
+            expect(subject).not_to be_valid
+            subject.user = nil
+            expect(subject).to be_valid
+          end
+        end
+
+        describe "project attribute" do
+          it "should be nil" do
+            subject.project = FactoryGirl.create(:project)
+            expect(subject).not_to be_valid
+            subject.user = nil
+            expect(subject).to be_valid
+          end
+        end
+
+        describe "start_using attribute" do
+          it "should be nil" do
+            subject.start_using = DateTime.now
+            expect(subject).not_to be_valid
+            subject.start_using = nil
+            expect(subject).to be_valid
+          end
+        end
+      end
+
+      describe "when status is UNAVAILABLE" do
+        before { subject.status = Device::STATUSES[1] } 
+        describe "user attribute" do
+          it "should not be nil" do
+            subject.user = FactoryGirl.create(:user)
+            expect(subject).to be_valid
+            subject.user = nil
+            expect(subject).not_to be_valid
+          end
+        end
+
+        describe "project attribute" do
+          it "should not be nil" do
+            subject.project = FactoryGirl.create(:project)
+            expect(subject).to be_valid
+            subject.user = nil
+            expect(subject).not_to be_valid
+          end
+        end
+
+        describe "start_using attribute" do
+          it "should be nil" do
+            subject.start_using = DateTime.now
+            expect(subject).to be_valid
+            subject.start_using = nil
+            expect(subject).not_to be_valid
+          end
+        end
+      end
+
     end 
 
     describe 'so' do
@@ -193,6 +254,23 @@ describe Device do
           expect(subject).not_to be_valid
         end
       end
+    end
+
+    describe 'user' do
+      describe "when device attribute is nil" do
+        it "should be nil" do
+        end
+      end
+      describe "when device attribute isn't nil" do
+        it "should not be nil" do
+        end
+      end
+    end
+
+    describe 'project' do
+    end
+
+    describe 'start_using' do
     end
 
   end
