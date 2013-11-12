@@ -1,6 +1,19 @@
 require 'spec_helper'
 
+
 describe Device do
+
+  shared_examples "have transition" do |transition_name_method, from, to|
+    describe "##{transition_name_method}" do
+      it "should have transition from #{from} to #{to}" do
+        subject.status = from
+        expect{subject.send( (transition_name_method + "?").to_sym)}.to be_true
+        expect{subject.send( (transition_name_method + "!").to_sym)}.to change(subject, :status).from(from).to(to)
+      end
+    end
+  end
+
+
   before { @device = FactoryGirl.build(:device) }
   subject { @device }
   #=========================== attributes ===================================================#
@@ -36,6 +49,26 @@ describe Device do
     end
   end
 
+  #=========================== state machine ===================================================#
+
+  describe "state machine" do
+    before do 
+      subject.user = FactoryGirl.create(:user) 
+      subject.project = FactoryGirl.create(:project) 
+      subject.start_using = Time.now
+    end
+    it 'initial state should be available' do
+      should be_available
+    end
+    
+    it_should_behave_like "have transition", "mark_as_unavailable", "AVAILABLE", "UNAVAILABLE"
+    it_should_behave_like "have transition", "mark_as_failing", "AVAILABLE", "FAILING"
+    it_should_behave_like "have transition", "mark_as_available", "UNAVAILABLE", "AVAILABLE"
+    it_should_behave_like "have transition", "mark_as_available", "FAILING", "AVAILABLE"
+  end
+
+  #=========================== validations =====================================================#
+
   context 'validations' do
     describe 'type_device' do 
       describe 'when is blank' do
@@ -63,95 +96,6 @@ describe Device do
           end
         end
       end
-    end 
-
-    describe 'statuses' do 
-      describe 'when is blank' do
-        before { subject.status = '' }
-        it "should be invalid" do
-          expect(subject).not_to be_valid
-        end
-      end
- 
-      describe "when doesn't have the right status" do
-        it "should be invalid" do
-          wrong_statuses = %w(wrong_status other_wrong)
-          wrong_statuses.each do |wrong_status|
-            subject.status = wrong_status
-            expect(subject).not_to be_valid
-          end
-        end
-      end
-
-      describe "when have the right status" do
-        it "should be valid" do
-          Device::STATUSES.each do |right_status|
-            subject.status = right_status
-            expect(subject).to be_valid
-          end
-        end
-      end
-
-      describe "when status is AVAILABLE" do
-        before { subject.status = Device::STATUSES[0] } 
-        describe "user attribute" do
-          it "should be nil" do
-            subject.user = FactoryGirl.create(:user)
-            expect(subject).not_to be_valid
-            subject.user = nil
-            expect(subject).to be_valid
-          end
-        end
-
-        describe "project attribute" do
-          it "should be nil" do
-            subject.project = FactoryGirl.create(:project)
-            expect(subject).not_to be_valid
-            subject.user = nil
-            expect(subject).to be_valid
-          end
-        end
-
-        describe "start_using attribute" do
-          it "should be nil" do
-            subject.start_using = DateTime.now
-            expect(subject).not_to be_valid
-            subject.start_using = nil
-            expect(subject).to be_valid
-          end
-        end
-      end
-
-      describe "when status is UNAVAILABLE" do
-        before { subject.status = Device::STATUSES[1] } 
-        describe "user attribute" do
-          it "should not be nil" do
-            subject.user = FactoryGirl.create(:user)
-            expect(subject).to be_valid
-            subject.user = nil
-            expect(subject).not_to be_valid
-          end
-        end
-
-        describe "project attribute" do
-          it "should not be nil" do
-            subject.project = FactoryGirl.create(:project)
-            expect(subject).to be_valid
-            subject.user = nil
-            expect(subject).not_to be_valid
-          end
-        end
-
-        describe "start_using attribute" do
-          it "should be nil" do
-            subject.start_using = DateTime.now
-            expect(subject).to be_valid
-            subject.start_using = nil
-            expect(subject).not_to be_valid
-          end
-        end
-      end
-
     end 
 
     describe 'so' do
@@ -255,23 +199,5 @@ describe Device do
         end
       end
     end
-
-    describe 'user' do
-      describe "when device attribute is nil" do
-        it "should be nil" do
-        end
-      end
-      describe "when device attribute isn't nil" do
-        it "should not be nil" do
-        end
-      end
-    end
-
-    describe 'project' do
-    end
-
-    describe 'start_using' do
-    end
-
   end
 end
