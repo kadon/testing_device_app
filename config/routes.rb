@@ -1,5 +1,11 @@
 TestingDeviseApp::Application.routes.draw do
-  resources :devices
+  resources :devices do
+    member do
+      put 'mark_as_available'
+      put 'mark_as_unavailable'
+      put 'mark_as_failing'
+    end
+  end
 
 
   authenticated :user do

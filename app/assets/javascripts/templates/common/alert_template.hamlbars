@@ -1,0 +1,11 @@
+%a.close{ "data-dismiss" => "alert", :href => "#" }
+  x
+%h4 {{humanize type_message }}
+{{#is_array message}}
+%ul
+  {{#each message}}
+  %li {{this}}
+  {{/each}}
+{{else}}
+%p {{ message }}
+{{/is_array}}

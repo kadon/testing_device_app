@@ -1,7 +1,7 @@
 class Device < ActiveRecord::Base
   SOS = %w(Android iOS)
   TYPES = %w(SmartPhone Tablet)
-  STATUSES = %w(AVAILABLE UNAVAILABLE FAILING)
+  STATUSES = %w(available unavailable failing)
   
   attr_accessible :color, :description, :id_inventario, :no_serie, :so, :type_device, :udid, :version, :status, :start_using, :user_id, :project_id
 
@@ -21,22 +21,27 @@ class Device < ActiveRecord::Base
   validates :project, presence: true, if: :unavailable?
   validates :start_using, presence: true, if: :unavailable?
 
-  #Callbacks
-  before_save :clean_using_information
- 
   #Instance methods
 
-  state_machine :status, :initial => :AVAILABLE do
+  state_machine :status, :initial => :available do
+
+    before_transition :unavailable => any, :do => :clean_using_information
+    before_transition :available => :failing, :do => :clean_using_information
+
     event :mark_as_unavailable do
-      transition :AVAILABLE => :UNAVAILABLE
+      transition :available => :unavailable
     end
 
     event :mark_as_failing do
-      transition :AVAILABLE => :FAILING
+      transition :available => :failing
     end
 
     event :mark_as_available do
-      transition [:UNAVAILABLE, :FAILING] => :AVAILABLE
+      transition [:unavailable, :failing] => :available
+    end
+
+    state :unavailable do
+      validates_presence_of :user
     end
   end
 
@@ -51,19 +56,13 @@ class Device < ActiveRecord::Base
       type == type_name
     end
   end
-  
-  STATUSES.each do |status_name|
-    define_method "#{status_name.downcase}?" do
-      status == status_name
-    end
-  end
 
   #private methods
   private
   def clean_using_information
-    user = nil
-    project = nil
-    start_using = nil
+    self.user = nil
+    self.project = nil
+    self.start_using = nil
   end
 
 end

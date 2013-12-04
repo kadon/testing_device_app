@@ -1,7 +1,7 @@
 ManagerDevicesApp.module "Entities", (Entities, ManagerDevicesApp, Backbone, Marionette, $, _) ->
   class Entities.Device extends Backbone.Model
-    #urlRoot: "devices"
-    url: "/device"
+    urlRoot: "devices"
+    #url: "/device"
     defaults:
       id:            ""
       description:   ""
@@ -15,18 +15,30 @@ ManagerDevicesApp.module "Entities", (Entities, ManagerDevicesApp, Backbone, Mar
 
     validate: (attrs, options) ->
       errors = {}
-      errors.brand = "can't be blank"  unless attrs.brand
       errors.so = "can't be blank"  unless attrs.so
-      errors.model = "can't be blank"  unless attrs.model
-      errors.serie = "can't be blank"  unless attrs.serie
+
+    markAsAvailable: () ->
+      return mark_status @, @urlRoot + '/' + @id + '/mark_as_available'
+
+    markAsUnavailable: () ->
+      return mark_status @, @urlRoot + '/' + @id + '/mark_as_unavailable'
+
+    markAsFailing: () ->
+      return mark_status @, @urlRoot + '/' + @id + '/mark_as_failing'
   
     getStatusLabelClass: ->
       status = @get('status')
       status = "" unless status
       switch status
-        when "AVAILABLE" then "label-success"
-        when "UNAVAILABLE" then "label-important"
-        when "FAILING" then ""
+        when "available" then "label-success"
+        when "unavailable" then "label-important"
+        when "failing" then ""
         else ""
-      
+  
+# Private     
+mark_status = (model, url) ->
+  options = _.defaults((options || {}), { url: url })
+  return Backbone.Model.prototype.save.call(model, {id: model.id}, options)
 
+
+  

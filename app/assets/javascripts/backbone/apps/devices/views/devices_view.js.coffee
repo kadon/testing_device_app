@@ -1,7 +1,6 @@
 ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, Marionette, $, _) ->
   class List.Contacts extends Marionette.CompositeView
     tagName: "div"
-    className: "s"
     template: "devices/list"
     emptyView: NoContactsView
     itemView: List.Contact

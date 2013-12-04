@@ -12,6 +12,7 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
     className: "span2"
     template: "devices/list_item"
     templateItemListOptions: "devices/list_option_item"
+
     events:
       click: "highlightName"
       "click td a.js-show": "showClicked"
@@ -27,6 +28,23 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
       thumbnails: '.thumbnail'
       statusLabel: 'span.label'
       optionsList: 'ul.options'
+
+    initialize: ->
+      #@listenTo @model, 'destroy', @remove
+      @listenTo @model, "error", @showErrorAlert
+      @listenTo @model, "request", @showSpinner
+
+    showSpinner: ->
+      console.log('Show spinner when there is a request')
+
+    showErrorAlert: (model, xhr, options)->
+      modelErrors = []
+      if xhr.responseJSON.errors
+        _.each(xhr.responseJSON.errors, (errors, attribute)->
+          err = errors.join "; "
+          modelErrors.push( attribute + ": " + err )
+        )
+      ManagerDevicesApp.trigger "showAlert", modelErrors, 'error'
 
     flash: (cssClass) ->
       $view = @$el
@@ -57,12 +75,13 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
     removeDevice: (e) ->
       e.preventDefault()
       e.stopPropagation()
-      console.log("Lets remove this device")
+      @trigger "device:delete", @model
+      #console.log("Lets remove this device")
 
     useDevice: (e) ->
       e.preventDefault()
       e.stopPropagation()
-      console.log("Lets use this device")
+      @trigger "device:mark_as_using"
 
     relaseDevice: (e) ->
       e.preventDefault()
@@ -92,7 +111,7 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
         if ManagerDevicesApp.Authorization.can( action.cancan_name, 'Device')
           @ui.optionsList.append(HandlebarsTemplates[@templateItemListOptions]( action )) #unless option is 'Use' or option is "Release" and status is "UNAVAILABLE"
         
-    remove: ->
+    #remove: ->
       #@$el.fadeOut ->
       #  $(this).remove()
 

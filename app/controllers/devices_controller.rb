@@ -6,10 +6,37 @@ class DevicesController < ApplicationController
   # GET /devices.json
   def index
     @devices = Device.all
-    #respond_to do |format|
-    #  format.html # index.html.erb
-    #  format.json { render json: @devices }
-    #end
+  end
+
+  # DELETE /devices/1
+  # DELETE /devices/1.json
+  def destroy
+    device = Device.find(params[:id])
+    device.destroy
+    respond_with(device)
+  end
+
+  # PUT /devices/1/mark_as_available
+  def mark_as_available
+    device = Device.find(params[:id])
+    device.mark_as_available
+    respond_with(device)
+  end
+
+
+  # PUT /devices/1/mark_as_unavailable
+  def mark_as_unavailable
+    device = Device.find(params[:id])
+    device.mark_as_unavailable
+    respond_with(device)
+  end
+
+
+  # PUT /devices/1/mark_as_failing
+  def mark_as_failing
+    device = Device.find(params[:id])
+    device.mark_as_failing
+    respond_with(device)
   end
 
 =begin

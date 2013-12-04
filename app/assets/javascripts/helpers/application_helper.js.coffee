@@ -22,3 +22,10 @@ Handlebars.registerHelper "can", (action, name_model, options) ->
     return options.fn(this)
   else
     return options.inverse(this)
+
+Handlebars.registerHelper "is_array", (array, options) ->
+  if $.isArray(array)
+    return options.fn(this)
+  else
+    return options.inverse(this)
+

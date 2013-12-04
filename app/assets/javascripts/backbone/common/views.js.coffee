@@ -1,6 +1,7 @@
 @ManagerDevicesApp.module "Common.Views", (Views, ManagerDevicesApp, Backbone, Marionette, $, _) ->
-  Views.Loading = Marionette.ItemView.extend(
+  class Views.Loading extends Marionette.ItemView
     template: "common/loading_templayte"
+
     serializeData: ->
       title: @options.title or "Loading Data"
       message: @options.message or "Please wait, data is loading..."
@@ -25,5 +26,15 @@
         left: "auto" # Left position relative to parent in px
 
       $("#spinner").spin opts
-  )
+
+  class Views.Alert extends Marionette.ItemView
+    template: "common/alert_template"
+    className: "alert"
+
+    events:
+      "click a.close": @remove
+
+    onRender: ->
+      type_message = @model.get("type_message")
+      @$el.addClass("alert-" + type_message ) if type_message
 

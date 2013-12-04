@@ -27,6 +27,11 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
         devicesListLayout.panelRegion.show devicesListPanel
         devicesListLayout.contactsRegion.show devicesListView
 
+
+      devicesListView.on "itemview:device:mark_as_using", (childView, model)->
+        childView.model.markAsUnavailable()
+        console.log('since device list controller lets mark as use')
+
       #devicesListPanel.on "device:new", ->
       #  newContact = new ManagerDevicesApp.Entities.Contact()
       #  view = new ManagerDevicesApp.ContactsApp.New.Contact(model: newContact)
@@ -63,7 +68,7 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
 
       #  ManagerDevicesApp.dialogRegion.show view
 
-      #devicesListView.on "itemview:contact:delete", (childView, model) ->
+      #devicesListView.on "itemview:device:delete", (childView, model) ->
       #  model.destroy()
 
       ManagerDevicesApp.mainRegion.show devicesListLayout
