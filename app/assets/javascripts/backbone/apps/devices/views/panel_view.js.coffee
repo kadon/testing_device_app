@@ -2,7 +2,7 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
   class List.Panel extends Marionette.ItemView
     template: "common/list_panel"
     #triggers:
-    #  "click button.js-new": "contact:new"
+    #  "click button.js-new": "device:new"
     events:
       "click button.js-filter": "filterClicked"
 

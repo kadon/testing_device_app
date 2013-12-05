@@ -65,18 +65,17 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
     editDevice: (e) ->
       e.preventDefault()
       e.stopPropagation()
-      console.log("Lets edit this device")
+      console.log("edit this device")
 
     showDevice: (e) ->
       e.preventDefault()
       e.stopPropagation()
-      console.log("Lets show this device")
+      console.log("show this device")
 
     removeDevice: (e) ->
       e.preventDefault()
       e.stopPropagation()
       @trigger "device:delete", @model
-      #console.log("Lets remove this device")
 
     useDevice: (e) ->
       e.preventDefault()
@@ -86,18 +85,18 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
     relaseDevice: (e) ->
       e.preventDefault()
       e.stopPropagation()
-      console.log("Lets relase this device")
+      console.log("relase this device")
 
 
 
     editClicked: (e) ->
       e.preventDefault()
       e.stopPropagation()
-      #@trigger "contact:edit", @model
+      #@trigger "device:edit", @model
 
     deleteClicked: (e) ->
       e.stopPropagation()
-      #@trigger "contact:delete", @model
+      #@trigger "device:delete", @model
 
     onRender: ->
       @ui.statusLabel.addClass(@model.getStatusLabelClass())
@@ -109,7 +108,7 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
       status = @model.get('status')
       for action in ACTIONS
         if ManagerDevicesApp.Authorization.can( action.cancan_name, 'Device')
-          @ui.optionsList.append(HandlebarsTemplates[@templateItemListOptions]( action )) #unless option is 'Use' or option is "Release" and status is "UNAVAILABLE"
+          @ui.optionsList.append(HandlebarsTemplates[@templateItemListOptions]( action )) 
         
     #remove: ->
       #@$el.fadeOut ->

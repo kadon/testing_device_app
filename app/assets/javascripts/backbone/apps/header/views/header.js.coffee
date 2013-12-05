@@ -10,6 +10,4 @@ ManagerDevicesApp.module "HeaderApp.List", (List, ManagerDevicesApp, Backbone, M
       @trigger "navigate", @model
 
     onRender: ->
-      
-      # add class so Bootstrap will highlight the active entry in the navbar
       @$el.addClass "active"  if @model.selected
