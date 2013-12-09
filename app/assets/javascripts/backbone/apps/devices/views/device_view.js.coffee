@@ -9,7 +9,7 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
 
   class List.Contact extends Marionette.ItemView
     tagName: "li"
-    className: "span2"
+    className: "span2 device"
     template: "devices/list_item"
     templateItemListOptions: "devices/list_option_item"
 
@@ -32,6 +32,7 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
     initialize: ->
       #@listenTo @model, 'destroy', @remove
       @listenTo @model, "error", @showErrorAlert
+      @listenTo @model, "sync", @render
       @listenTo @model, "request", @showSpinner
 
     showSpinner: ->
@@ -85,9 +86,8 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
     relaseDevice: (e) ->
       e.preventDefault()
       e.stopPropagation()
-      console.log("relase this device")
-
-
+      return unless confirm("Are you sure?")
+      @trigger "device:mark_as_available"
 
     editClicked: (e) ->
       e.preventDefault()
@@ -99,6 +99,7 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
       #@trigger "device:delete", @model
 
     onRender: ->
+      console.log('Sync event')
       @ui.statusLabel.addClass(@model.getStatusLabelClass())
       @renderOptions()
       @ui.thumbnails.find('li.hint').tooltip() #Show hint about each option

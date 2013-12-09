@@ -28,9 +28,19 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
         devicesListLayout.contactsRegion.show devicesListView
 
 
-      devicesListView.on "itemview:device:mark_as_using", (childView, model)->
-        childView.model.markAsUnavailable()
+      devicesListView.on "itemview:device:mark_as_using", (childView)->
+        #childView.model.markAsUnavailable()
+        fetchingProjects = ManagerDevicesApp.request("project:entities")
+        $.when(fetchingProjects).done (projects) ->
+          view = new ManagerDevicesApp.DevicesApp.List.UseModal( model: childView.model, project_collection: projects )
+          view.on "show", () ->
+            view.showModal()
+          ManagerDevicesApp.dialogRegion.show view
         console.log('since device list controller lets mark as use')
+
+
+      devicesListView.on "itemview:device:mark_as_available", (childView)->
+        childView.model.markAsAvailable()
 
       #devicesListPanel.on "device:new", ->
       #  newContact = new ManagerDevicesApp.Entities.Contact()

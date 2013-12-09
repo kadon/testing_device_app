@@ -4,7 +4,7 @@
   alertsRegion: "#alerts-container"
   headerRegion: "#header-region"
   mainRegion: "#main-region"
-  dialogRegion: Marionette.Region.Dialog.extend(el: "#dialog-region")
+  dialogRegion: "#dialog-region"#Marionette.Region.Dialog.extend(el: "#dialog-region")
 
 @ManagerDevicesApp.navigate = (route, options) ->
   options or (options = {})

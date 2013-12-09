@@ -1,0 +1,22 @@
+.modal-header
+  %button.close.js-close{:type => "button", :"data-dismiss" => "modal", :"aria-hidden" => "true"}
+    x
+  %h3
+    Mark as using: {{ description }}
+
+.modal-body
+  %fieldset
+    .control-group
+      %label.control-label{ :for => "project"}
+        Project Name
+      .controls
+        %select#projects
+    %label.checkbox
+      %input{ :type => "checkbox" } 
+        Take the cable
+
+.modal-footer
+  %a.btn.js-close{ :href => "#"}
+    Close
+  %a#js-mark-as-unavailable.btn.btn-primary{:href=>"#"}
+    To Use

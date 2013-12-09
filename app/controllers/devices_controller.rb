@@ -1,7 +1,7 @@
 class DevicesController < ApplicationController
   load_and_authorize_resource
-
   respond_to :json
+
   # GET /devices
   # GET /devices.json
   def index
@@ -18,17 +18,18 @@ class DevicesController < ApplicationController
 
   # PUT /devices/1/mark_as_available
   def mark_as_available
-    device = Device.find(params[:id])
-    device.mark_as_available
-    respond_with(device)
+    @device = Device.find(params[:id]) 
+    respond_with(@device) unless @device.mark_as_available
   end
 
 
   # PUT /devices/1/mark_as_unavailable
   def mark_as_unavailable
-    device = Device.find(params[:id])
-    device.mark_as_unavailable
-    respond_with(device)
+    @device = Device.find(params[:id])
+    @device.user = current_user
+    @device.start_using = Time.now
+    @device.project_id = params[:project_id]
+    respond_with(@device) unless @device.mark_as_unavailable
   end
 
 

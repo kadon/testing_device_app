@@ -7,7 +7,7 @@ TestingDeviseApp::Application.routes.draw do
     end
   end
 
-
+  resources :projects
   authenticated :user do
     root :to => 'welcom#home'
   end
