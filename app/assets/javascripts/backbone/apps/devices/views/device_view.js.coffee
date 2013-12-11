@@ -41,10 +41,13 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
     showErrorAlert: (model, xhr, options)->
       modelErrors = []
       if xhr.responseJSON.errors
-        _.each(xhr.responseJSON.errors, (errors, attribute)->
-          err = errors.join "; "
-          modelErrors.push( attribute + ": " + err )
-        )
+        if typeof xhr.responseJSON.errors == 'string'
+          modelErrors.push xhr.responseJSON.errors
+        else
+          _.each(xhr.responseJSON.errors, (errors, attribute)->
+            err = errors.join "; "
+            modelErrors.push( attribute + ": " + err )
+          )
       ManagerDevicesApp.trigger "showAlert", modelErrors, 'error'
 
     flash: (cssClass) ->

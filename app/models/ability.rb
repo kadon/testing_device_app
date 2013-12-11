@@ -7,6 +7,9 @@ class Ability
     else #if user.tester? or user.developer?
         can :read, Device
         can :write, Device
+        can :mark_as_unavailable, Device
+        can :mark_as_available, Device, :user_id => user.id
+        can :read, Project
         can :read, User
         cannot :write, User
     end
