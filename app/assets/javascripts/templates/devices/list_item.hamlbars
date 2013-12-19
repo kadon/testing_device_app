@@ -5,8 +5,8 @@
     %ul.options
   %img.device{:alt => "Smiley face", :src => "assets/smartphone211.jpg"}
   .caption
-    %h5.description 
-      .crop {{ description }}
+    %strong.description 
+      {{ description }}
     .device-label
       %h6=hb "t 'activerecord.attributes.device.so'" 
       %h6.description {{ so }}

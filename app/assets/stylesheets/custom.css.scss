@@ -181,3 +181,14 @@ ul.thumbnails li.device {
   background-color: #F2F2F2;
 }
 
+.thumbnail .popover .arrow{
+  border-width: 20px 20px 20px 0px;
+  border-right-color: black;
+  color: black; 
+}
+
+.thumbnail .popover{
+  color: white;
+  background-color: black; 
+  opacity: 0.8;
+}

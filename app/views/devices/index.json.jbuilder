@@ -9,4 +9,7 @@ json.array! @devices do |device|
   json.description device.description
   json.color device.color
   json.status device.status
+  json.user device.user_name
+  json.project device.project_name
+  json.start_using  device.start_using ? time_ago_in_words(device.start_using) : ""
 end

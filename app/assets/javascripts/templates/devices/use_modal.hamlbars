@@ -2,7 +2,7 @@
   %button.close.js-close{:type => "button", :"data-dismiss" => "modal", :"aria-hidden" => "true"}
     x
   %h3
-    Mark as using: {{ description }}
+    Mark as used: {{ description }}
 
 .modal-body
   %fieldset
@@ -13,7 +13,7 @@
         %select#projects
     %label.checkbox
       %input{ :type => "checkbox" } 
-        Take the cable
+        Take the USB-cable
 
 .modal-footer
   %a.btn.js-close{ :href => "#"}

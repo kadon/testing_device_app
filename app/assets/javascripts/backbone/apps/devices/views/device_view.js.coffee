@@ -12,6 +12,7 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
     className: "span2 device"
     template: "devices/list_item"
     templateItemListOptions: "devices/list_option_item"
+    templateUsingByPopover: "devices/using_by_popover"
 
     events:
       click: "highlightName"
@@ -102,17 +103,26 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
       #@trigger "device:delete", @model
 
     onRender: ->
-      console.log('Sync event')
+      self = this
       @ui.statusLabel.addClass(@model.getStatusLabelClass())
       @renderOptions()
       @ui.thumbnails.find('li.hint').tooltip() #Show hint about each option
-      @ui.statusLabel.popover({title: 'Titulo', trigger: 'hover'})
+      console.log @model.toJSON()
+      isUnavailable = @model.get('status') is 'unavailable'
+      if isUnavailable
+        @ui.statusLabel.css('cursor', 'pointer')
+        @ui.statusLabel.popover
+          animation: true
+          html: true
+          trigger: 'hover'
+          content: HandlebarsTemplates[@templateUsingByPopover]( @model.toJSON())
+          delay: { show: 250, hide: 100 }
 
     renderOptions: ->
       status = @model.get('status')
       for action in ACTIONS
         if ManagerDevicesApp.Authorization.can( action.cancan_name, 'Device')
-          @ui.optionsList.append(HandlebarsTemplates[@templateItemListOptions]( action )) 
+          @ui.optionsList.append(HandlebarsTemplates[@templateItemListOptions]( action ))
         
     #remove: ->
       #@$el.fadeOut ->

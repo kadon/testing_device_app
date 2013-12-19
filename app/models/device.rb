@@ -21,6 +21,10 @@ class Device < ActiveRecord::Base
   validates :project, presence: true, if: :unavailable?
   validates :start_using, presence: true, if: :unavailable?
 
+  #delegates
+  delegate :name, :to => :user, :prefix => true, :allow_nil => true
+  delegate :name, :to => :project, :prefix => true, :allow_nil => true
+
   #Instance methods
 
   state_machine :status, :initial => :available do
