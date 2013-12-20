@@ -1,9 +1,9 @@
 class Device < ActiveRecord::Base
-  SOS = %w(Android iOS)
+  SOS = %w(Android iOS BlackBerry)
   TYPES = %w(SmartPhone Tablet)
   STATUSES = %w(available unavailable failing)
   
-  attr_accessible :color, :description, :id_inventario, :no_serie, :so, :type_device, :udid, :version, :status, :start_using, :user_id, :project_id
+  attr_accessible :color, :description, :id_inventario, :no_serie, :so, :type_device, :udid, :version, :status, :start_using, :user_id, :project_id, :take_cable
 
   #Associations
   belongs_to :user
@@ -67,6 +67,7 @@ class Device < ActiveRecord::Base
     self.user = nil
     self.project = nil
     self.start_using = nil
+    self.take_cable  = nil
   end
 
 end

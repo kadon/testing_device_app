@@ -1,5 +1,5 @@
 ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, Marionette, $, _) ->
-  List.Controller = listDevices: (criterion) ->
+  List.Controller = listDevices: (criterion, mode) ->
     loadingView = new ManagerDevicesApp.Common.Views.Loading()
     ManagerDevicesApp.mainRegion.show loadingView
     fetchingDevices = ManagerDevicesApp.request("device:entities")
@@ -11,14 +11,18 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
         filterFunction: (filterCriterion) ->
           criterion = filterCriterion.toLowerCase()
           (device) ->
-            device  if device.get("brand").toLowerCase().indexOf(criterion) isnt -1 or device.get("so").toLowerCase().indexOf(criterion) isnt -1 or device.get("model").toLowerCase().indexOf(criterion) isnt -1
+            device  if device.get("description").toLowerCase().indexOf(criterion) isnt -1 or device.get("so").toLowerCase().indexOf(criterion) isnt -1 or device.get("udid").toLowerCase().indexOf(criterion) isnt -1
       )
       if criterion
         filteredDevices.filter criterion
         devicesListPanel.once "show", ->
           devicesListPanel.triggerMethod "set:filter:criterion", criterion
 
-      devicesListView = new List.Contacts(collection: filteredDevices)
+      if mode and mode is 'simple'
+        devicesListView = new List.SimpleContacts(collection: filteredDevices)
+      else
+        devicesListView = new List.Contacts(collection: filteredDevices)
+
       devicesListPanel.on "contacts:filter", (filterCriterion) ->
         filteredDevices.filter filterCriterion
         ManagerDevicesApp.trigger "contacts:filter", filterCriterion

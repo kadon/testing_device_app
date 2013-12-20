@@ -15,6 +15,7 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
 
     ui:
       selectProjects: "#projects"
+      takeCable: "#take-cable"
 
     onRender: ->
       @project_collection.each @addProjectOption, @
@@ -26,6 +27,7 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
 
     markAsUnavailable: ->
       @model.set 'project_id', @ui.selectProjects.find(":selected").attr('value')
+      @model.set 'take_cable', @ui.takeCable.is(':checked')
       @model.markAsUnavailable()
       @closeModal()
 

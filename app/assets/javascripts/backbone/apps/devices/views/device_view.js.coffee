@@ -1,13 +1,14 @@
 ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, Marionette, $, _) ->
   ACTIONS = [
     {name: 'edit', cancan_name: 'edit', icon: 'icon-pencil'},
-    {name: 'show', cancan_name: 'read', icon: 'icon-eye-open'},
+    {name: 'see_details', cancan_name: 'read', icon: 'icon-eye-open'},
     {name: 'remove', cancan_name: 'remove', icon: 'icon-remove-circle'},
-    {name: 'use', cancan_name: 'read', icon: 'icon-hand-up'},
-    {name: 'relase', cancan_name: 'read',  icon: 'icon-hand-down'}
+    {name: 'take', cancan_name: 'read', icon: 'icon-hand-up'},
+    {name: 'release', cancan_name: 'read',  icon: 'icon-hand-down'}
   ]
 
-  class List.Contact extends Marionette.ItemView
+
+  class List.Device extends Marionette.ItemView
     tagName: "li"
     className: "span2 device"
     template: "devices/list_item"
@@ -20,10 +21,10 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
       "click td a.js-edit": "editClicked"
       "click button.js-delete": "deleteClicked"
       "click i.edit": "editDevice"
-      "click i.show": "showDevice"
+      "click i.see_details": "showDevice"
       "click i.remove": "removeDevice"
-      "click i.use": "useDevice"
-      "click i.relase": "relaseDevice"
+      "click i.take": "useDevice"
+      "click i.release": "relaseDevice"
 
     ui:
       thumbnails: '.thumbnail'

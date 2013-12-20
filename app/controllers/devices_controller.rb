@@ -29,6 +29,7 @@ class DevicesController < ApplicationController
     @device.user = current_user
     @device.start_using = Time.now
     @device.project_id = params[:project_id]
+    @device.take_cable = params[:take_cable]
     respond_with(@device) unless @device.mark_as_unavailable
   end
 

@@ -48,6 +48,7 @@ group :assets do
   gem 'i18n-js', '2.1.2'
 end
 gem "devise", ">= 2.2.3"
+gem 'devise-encryptable'
 gem 'jquery-rails', '~> 3.0.4'
 gem "haml-rails"
 gem 'hamlbars', '~> 2.0'

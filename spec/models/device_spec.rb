@@ -17,7 +17,7 @@ describe Device do
   subject { @device }
 
   #========================= Attributes =========================#
-  [:type_device, :so, :version, :no_serie, :id_inventario, :udid, :description, :color, :status, :start_using, :user_id, :project_id].each do |attr|
+  [:type_device, :so, :version, :no_serie, :id_inventario, :udid, :description, :color, :status, :start_using, :user_id, :project_id, :take_cable].each do |attr|
     it { should allow_mass_assignment_of(attr) }
   end
 
@@ -109,6 +109,7 @@ describe Device do
         it "user, project and start_using attributes should be nil" do
           subject.mark_as_failing
           expect{subject.user.nil?}.to be_true
+          expect{subject.take_cable.nil?}.to be_true
         end
       end
     end
@@ -119,6 +120,7 @@ describe Device do
         it "user, project and start_using attributes should be nil" do
           subject.mark_as_available
           expect{subject.user.nil?}.to be_true
+          expect{subject.take_cable.nil?}.to be_true
         end
       end
 
@@ -130,6 +132,7 @@ describe Device do
         it "user, project and start_using attributes should be nil" do
           subject.mark_as_available
           expect{subject.user.nil?}.to be_true
+          expect{subject.take_cable.nil?}.to be_true
         end
       end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131107221732) do
+ActiveRecord::Schema.define(:version => 20131219164428) do
 
   create_table "devices", :force => true do |t|
     t.string   "type_device"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20131107221732) do
     t.datetime "start_using"
     t.integer  "user_id"
     t.integer  "project_id"
+    t.boolean  "take_cable"
   end
 
   add_index "devices", ["project_id"], :name => "index_devices_on_project_id"

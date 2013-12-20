@@ -192,3 +192,8 @@ ul.thumbnails li.device {
   background-color: black; 
   opacity: 0.8;
 }
+
+.thumbnail .caption{
+  overflow-y: scroll;
+  height: 166px;
+}
