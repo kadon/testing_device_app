@@ -4,5 +4,7 @@
       %th
         Description
       %th
-        Status
+        Used by
+      %th
+        Stauts
   %tbody

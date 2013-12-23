@@ -1,5 +1,7 @@
 ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, Marionette, $, _) ->
-  List.Controller = listDevices: (criterion, mode) ->
+  simpleListView = false
+
+  List.Controller = listDevices: (criterion) ->
     loadingView = new ManagerDevicesApp.Common.Views.Loading()
     ManagerDevicesApp.mainRegion.show loadingView
     fetchingDevices = ManagerDevicesApp.request("device:entities")
@@ -18,7 +20,9 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
         devicesListPanel.once "show", ->
           devicesListPanel.triggerMethod "set:filter:criterion", criterion
 
-      if mode and mode is 'simple'
+      console.log simpleListView
+
+      if simpleListView
         devicesListView = new List.SimpleContacts(collection: filteredDevices)
       else
         devicesListView = new List.Contacts(collection: filteredDevices)
@@ -41,6 +45,10 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
             view.showModal()
           ManagerDevicesApp.dialogRegion.show view
         console.log('since device list controller lets mark as use')
+
+      devicesListPanel.on "change:view:type", ()->
+        console.log simpleListView
+        simpleListView = !simpleListView
 
 
       devicesListView.on "itemview:device:mark_as_available", (childView)->

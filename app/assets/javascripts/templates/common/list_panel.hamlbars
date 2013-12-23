@@ -3,6 +3,8 @@
   Add device
   %i.icon-plus.icon-white
 {{/can}}
+%a.btn.js-toggle-view
+  %i.icon-random
 %form.form-search.form-inline.pull-right
   .input-append
     %input.search-query.js-filter-criterion{:type => "text"}

@@ -1,4 +1,7 @@
 %td
   {{ description }}
 %td
-  {{ status }}
+  {{ user }}
+%td
+  %span.label.bm
+    =hb 'humanize status'
