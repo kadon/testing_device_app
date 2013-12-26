@@ -25,13 +25,3 @@ ManagerDevicesApp.module "DevicesApp.List", (List, ManagerDevicesApp, Backbone, 
       target.toggleClass("simple")
       @trigger "change:view:type"
       ManagerDevicesApp.trigger "devices:list"
-
-
-      #if target.hasClass("js-devices-view")
-      #  target.addClass("js-simple-view")
-      #  target.removeClass("js-devices-view")
-      #else
-      #  target.addClass("js-devices-view")
-      #  target.removeClass("js-simple-view")
-        
-      
